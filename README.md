@@ -1,256 +1,166 @@
-# [App Name] Integration Documentation
+# TODO APP API 
 
-## Overview
+# Technical Design Document
 
-[Description]
+## 1. Introduction
 
-## Folder Structure
+### Purpose
+The purpose of this document is to provide a comprehensive technical design for the TODO App API. It details the architecture, components, data design, and implementation strategies necessary to develop and deploy the API.
 
-```
-|--- src
-|    |--- controllers
-|    |--- database
-|    |--- interfaces
-|    |--- middlewares
-|    |--- routes
-|    |--- services
-|    |--- utils
-|    |--- server.ts
-|--- .env
-|--- app.ts
-|--- .gitignore
-|--- package.json
-|--- tsconfig.json
-```
+### Scope
+This document covers the design and development of the TODO App API backend, database schema, authentication mechanisms, third-party integrations, security considerations, testing strategies, deployment plan, and maintenance guidelines.
 
-## Dependencies (Dev)
+### Definitions, Acronyms, and Abbreviations
+- **API**: Application Programming Interface
+- **JWT**: JSON Web Token
+- **ER**: Entity-Relationship
+- **GDPR**: General Data Protection Regulation
+- **AWS**: Amazon Web Services
+- **Node.js**: JavaScript runtime built on Chrome's V8 JavaScript engine
+- **PostgreSQL**: Open-source relational database management system
 
-- Node.js
-- TypeScript
-- Express
-- ts-node-dev
-- [Other dependencies]
+## 2. System Overview
 
-## Getting Started
+### System Description
+The TODO App API is a backend service that provides endpoints for managing tasks. It allows users to create, read, update, and delete tasks. The API uses JWT for authentication and integrates with an email service for notifications.
 
-Before you begin, ensure you have the following installed on your machine:
+### Goals and Objectives
+- Provide a reliable and scalable API for managing tasks.
+- Ensure secure access through JWT authentication.
+- Comply with GDPR for data protection.
+- Integrate seamlessly with third-party email services.
+- Deliver high performance and efficient response times.
 
-- [Node.js](https://nodejs.org/) (v14 or later)
-- [npm](https://www.npmjs.com/) (Node Package Manager, included with Node.js)
-- [Git](https://git-scm.com/)
+## 3. Architecture Design
 
-## Contribution Guide
+### System Architecture
+The system architecture consists of a RESTful API built with Node.js and Express.js, a PostgreSQL database for data storage, JWT for authentication, and integration with an email service for notifications.
 
-## Getting Started
+### Component Diagram
+![Component Diagram](https://eraser.imgix.net/workspaces/tufSxadkRBIVVXLNnZDZ/cgftjyxbLVNyDnzTOdHDVn4r5S43/yXLO_X9EtFAG1rMtNUn1T.png?ixlib=js-3.7.0)
 
-#### If you don't have git on your machine, [install it](https://docs.github.com/en/get-started/quickstart/set-up-git).
+## 4. Detailed Design
 
-## Fork this repository
+### 4.1 Backend
 
-Fork this repository by clicking on the fork button on the top of this page.
-This will create a copy of this repository in your account.
+#### Programming Language
+JavaScript (Node.js)
 
-## Clone the repository
+#### Framework
+Express.js
 
-<img align="right" width="300" src="https://firstcontributions.github.io/assets/Readme/clone.png" alt="clone this repository" />
+#### API Endpoints
+- **/api/todos**
+    - **GET**: Get All Tasks
+    - **POST**: Create a Task
+- **/api/todos/{taskId}**
+    - **GET**: Get Task by ID
+    - **PUT**: Update Task
+    - **DELETE**: Delete Task
 
-Now clone the forked repository to your machine. Go to your GitHub account, open the forked repository, click on the code button and then click the _copy to clipboard_ icon.
+### 4.2 Database
 
-Open a terminal and run the following git command:
+#### Database Technology
+PostgreSQL
 
-```bash
-git clone "url you just copied"
-```
+#### Schema Design
+The database schema includes tables for tasks, users, and any other necessary entities.
 
-where "url you just copied" (without the quotation marks) is the url to this repository (your fork of this project). See the previous steps to obtain the url.
+#### ER Diagram
+![ER Diagram](https://eraser.imgix.net/workspaces/tufSxadkRBIVVXLNnZDZ/cgftjyxbLVNyDnzTOdHDVn4r5S43/2aZLTYTRoSYRV5xe5C3Hb.png?ixlib=js-3.7.0)
 
-<img align="right" width="300" src="https://firstcontributions.github.io/assets/Readme/copy-to-clipboard.png" alt="copy URL to clipboard" />
+### 4.3 Authentication
 
-For example:
+#### Authentication Method
+JWT (JSON Web Token)
 
-```bash
-git clone git@github.com:this-is-you/first-contributions.git
-```
+#### Flow Diagram
+![Authentication Flow Diagram](https://eraser.imgix.net/workspaces/tufSxadkRBIVVXLNnZDZ/cgftjyxbLVNyDnzTOdHDVn4r5S43/DyhLt8qaxQZcZzQ5T7Nuc.png?ixlib=js-3.7.0)
 
-where `this-is-you` is your GitHub username. Here you're copying the contents of the first-contributions repository on GitHub to your computer.
+### 4.4 Third-Party Services
 
-## Create a branch
+#### Email Service
+The system integrates with an email service to send notifications to users. The integration details include API endpoints and authentication methods required to interact with the email service.
 
-Change to the repository directory on your computer (if you are not already there):
+## 5. Data Design
 
-```bash
-cd first-contributions
-```
+### Data Models
+- **Task**
+    - id: string
+    - title: string
+    - description: string
+    - completed: boolean
+- **TaskCreate**
+    - title: string
+    - description: string
+- **TaskUpdate**
+    - title: string
+    - description: string
+    - completed: boolean
 
-Now create a branch using the `git switch` command:
+## 6. Security Considerations
 
-```bash
-git switch -c your-new-branch-name
-```
+### Compliance Standards
+GDPR
 
-For example:
+### Security Measures
+- Use of HTTPS for secure communication.
+- Implementation of JWT for secure authentication.
+- Regular security audits and vulnerability assessments.
 
-```bash
-git switch -c add-alonzo-church
-```
+## 7. Performance Metrics
 
-### Make Changes
+### Performance Requirements
+- API response time should be under 200ms.
+- The system should handle up to 1000 concurrent users.
+- Database queries should be optimized for quick retrieval.
 
-Make your changes to the codebase. Ensure your code follows the project's coding standards and guidelines.
+## 8. Testing Strategy
 
-### Run Tests
+### Unit Testing
+Unit tests will be written for individual functions and components to ensure they work as expected.
 
-Run the existing tests to ensure your changes do not break anything. If you added new functionality, write corresponding tests.
+### Integration Testing
+Integration tests will be conducted to ensure that different parts of the system work together seamlessly.
 
-```sh
-npm run test
-```
+### End-to-End Testing
+End-to-end tests will simulate real user scenarios to ensure the entire system functions correctly from start to finish.
 
-## commit those changes
+## 9. Deployment Plan
 
-Now open `Contributors.md` file in a text editor, add your name to it. Don't add it at the beginning or end of the file. Put it anywhere in between. Now, save the file.
+### Deployment Environment
+AWS
 
-<img align="right" width="450" src="https://firstcontributions.github.io/assets/Readme/git-status.png" alt="git status" />
+### Deployment Steps
+1. Set up AWS infrastructure.
+2. Configure the environment and deploy the backend services.
+3. Set up the PostgreSQL database.
+4. Deploy the application and run initial tests.
+5. Monitor and maintain the system.
 
-If you go to the project directory and execute the command `git status`, you'll see there are changes.
+## 10. Maintenance and Support
 
-Add those changes to the branch you just created using the `git add` command:
+### Maintenance Plan
+Regular updates and patches will be applied to ensure the system remains secure and efficient. Performance monitoring tools will be used to identify and address any issues.
 
-## Push changes to GitHub
+### Support Resources
+- Documentation
+- User support portal
+- Regular updates and bug fixes
 
-Push your changes using the command `git push`:
+## 11. Appendices
 
-```bash
-git push -u origin your-branch-name
-```
+### Glossary
+- **API**: Application Programming Interface
+- **JWT**: JSON Web Token
+- **ER**: Entity-Relationship
+- **GDPR**: General Data Protection Regulation
+- **AWS**: Amazon Web Services
+- **Node.js**: JavaScript runtime built on Chrome's V8 JavaScript engine
+- **PostgreSQL**: Open-source relational database management system
 
-replacing `your-branch-name` with the name of the branch you created earlier.
-
-<details>
-<summary> <strong>If you get any errors while pushing, click here:</strong> </summary>
-
-- ### Authentication Error
-     <pre>remote: Support for password authentication was removed on August 13, 2021. Please use a personal access token instead.
-  remote: Please see https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/ for more information.
-  fatal: Authentication failed for 'https://github.com/<your-username>/first-contributions.git/'</pre>
-  Go to [GitHub's tutorial](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) on generating and configuring an SSH key to your account.
-
-</details>
-
-## Submit your changes for review into Staging
-
-If you go to your repository on GitHub, you'll see a `Compare & pull request` button. Click on that button.
-
-<img style="float: right;" src="https://firstcontributions.github.io/assets/Readme/compare-and-pull.png" alt="create a pull request" />
-
-Now submit the pull request.
-
-<img style="float: right;" src="https://firstcontributions.github.io/assets/Readme/submit-pull-request.png" alt="submit pull request" />
-
-Soon your changes will be merged into the staging branch of this project. You will get a notification email once the changes have been merged.
-
-## Setup Instructions
-
-### 1. Clone the Repository
-
-First, clone the repository to your local machine using Git.
-
-```sh
-git clone https://github.com/your-username/[app-name].git
-cd [app-name]
-```
-
-### 2. Install Dependencies
-
-Navigate to the project directory and install the required dependencies.
-
-```sh
-npm install
-```
-
-### 3. Configure Environment Variables
-
-Create a `.env` file in the root directory of the project and add your environment-specific variables. You can use the provided `.env.example` file as a reference.
-
-```sh
-cp .env.example .env
-```
-
-Edit the `.env` file to match your environment configuration.
-
-### 4. Compile TypeScript
-
-Compile the TypeScript code to JavaScript.
-
-```sh
-npm run build
-```
-
-### 5. Run the Development Server
-
-Start the development server with the following command. This will also watch for any changes in your code and automatically restart the server.
-
-```sh
-npm run start:dev
-```
-
-### 6. Run the Production Server
-
-To run the application in a production environment, use the following command:
-
-```sh
-npm run start
-```
-
-### 7. Verify the Setup
-
-Open your browser and navigate to `http://localhost:3000/api/v1/` to verify that the application is running correctly.
-
-## Folder Structure
-
-Here's an overview of the project's folder structure:
-
-```
-|--- src
-|    |--- controllers
-          |--- v1
-|    |--- database
-|    |--- interfaces
-|    |--- middlewares
-|    |--- routes
-|         |--- v1
-|    |--- services
-|    |--- utils
-|    |--- server.ts
-|--- .env
-|--- app.ts
-|--- .gitignore
-|--- package.json
-|--- tsconfig.json
-```
-
-## Scripts
-
-Here are some useful npm scripts that you can use during development and production:
-
-- `npm run build`: Compiles the TypeScript code to JavaScript.
-- `npm run start:dev`: Starts the development server with live reloading.
-- `npm run start`: Starts the production server.
-- `npm run test`: Runs the test suite (if available).
-- `npm run lint`: Runs the linter to check for code style issues.
-
-## Additional Resources
-
-- [Node.js Documentation](https://nodejs.org/en/docs/)
-- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
-- [Express Documentation](https://expressjs.com/)
-
-By following these steps, you should have your Node.js and TypeScript application up and running. If you encounter any issues, please refer to the documentation of the respective tools or seek help from the community.
-
-## API Endpoints
-
-All API endpoints can be referenced in the [API Reference](API_REFERENCE.md) document.
-
-## Versioning
-
-This project is versioned to ensure backward compatibility and easy maintenance. The current version is [version].
+### References
+- Project GitHub Repository: [link](https://github.com/cruso003/hng_boilerplate_node_web)
+- Swagger API Documentation: [Link](https://app.swaggerhub.com/apis/HADM/TODOAPI/1) 
+- Node.js Documentation: []
+- PostgreSQL Documentation: []
